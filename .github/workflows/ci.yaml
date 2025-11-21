@@ -23,5 +23,5 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: ${{ secrets.DOCKER_USERNAME }}/python-app:latest
+        tags: ${{ secrets.DOCKER_USERNAME }}/python-app:${{ github.sha }}
         platforms: linux/amd64,linux/arm64
