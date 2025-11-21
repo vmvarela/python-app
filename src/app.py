@@ -9,7 +9,7 @@ def details():
     return jsonify({
         "time": datetime.now().strftime("%I:%M:%S%p on %B %d, %Y"),
         "hostname": socket.gethostname(),
-        "message": "Hello from Flask API v3!"
+        "message": "Hola desde Flask API v3!"
     })
 
 @app.route("/api/v3/healthz")
