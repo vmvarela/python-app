@@ -1,6 +1,12 @@
 preset: conventionalcommits
 plugins:
-  - '@semantic-release/commit-analyzer'
-  - '@semantic-release/release-notes-generator'
-  - '@semantic-release/git'
-  - '@semantic-release/github'
+  - path: '@semantic-release/commit-analyzer'
+  - path: '@semantic-release/release-notes-generator'
+  - path: '@semantic-release/exec'
+    verifyReleaseCmd: |
+      sed -i 's/tag: .*/tag: \"${nextRelease.version}\"/' charts/python-app/values.yaml
+  - path: '@semantic-release/git'
+    message: "chore(release): bump ${nextRelease.version}\n\n${nextRelease.notes}"
+    assets:
+      - 'charts/python-app/values.yaml'
+  - path: '@semantic-release/github'
