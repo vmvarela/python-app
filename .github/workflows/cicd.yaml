@@ -1,4 +1,4 @@
-name: ci
+name: CI/CD
 on:
   push:
     #paths:
@@ -77,7 +77,7 @@ jobs:
     steps:
       - name: Install Argo CD CLI
         run: |
-          curl -ksSL -o argocd https://argocd-server.argo-cd/download/argocd-linux-arm64
+          curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-arm64
           sudo install -m 555 argocd /usr/local/bin/argocd
       - name: Argocd login
         run: |
@@ -85,7 +85,6 @@ jobs:
             --insecure \
             --grpc-web \
             --plaintext \
-            --skip-test \
             --username admin \
             --password ${{ secrets.ARGOCD_PASSWORD }}
       - name: Argocd app sync
