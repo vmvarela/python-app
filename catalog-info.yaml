@@ -5,7 +5,7 @@ metadata:
   description: Python app that displays time
   annotations:
     github.com/project-slug: vmvarela/python-app
-    backstage.io/techdocs-ref: dir:.
+    backstage.io/techdocs-ref: dir:docs
 spec:
   type: service
   owner: guests
