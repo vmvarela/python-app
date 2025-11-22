@@ -79,7 +79,7 @@ jobs:
     steps:
       - name: Install Argo CD CLI
         run: |
-          curl -ksSL -o argocd http://argocd-server.argocd/downloads/argocd-linux-arm64
+          curl -ksSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-arm64
           sudo install -m 555 argocd /usr/local/bin/argocd
       - name: Argocd login
         run: |
