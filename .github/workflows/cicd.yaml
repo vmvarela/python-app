@@ -73,7 +73,7 @@ jobs:
   cd:
     name: Continuous Deployment
     runs-on: arc-runner-set
-    needs: [release, ci]
+    needs: ci
     permissions:
       contents: write
     steps:
