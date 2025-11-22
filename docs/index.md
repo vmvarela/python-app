@@ -28,6 +28,12 @@ cd python-app
 pip install -r requirements.txt
 ```
 
+## Endpoints
+
+This application has two endpoints:
+- `/api/v3/info`
+- `/api/v3/healthz`
+
 ## Usage
 (Add specific usage instructions here)
 
