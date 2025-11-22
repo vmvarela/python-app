@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'src/**'
+      - 'charts/python-app/**'
     branches:
       - master
 
@@ -44,7 +45,7 @@ jobs:
             conventional-changelog-conventionalcommits@^9.1.0
             semantic-release-github-actions-tags@^2.0.2
 
-  docker:
+  ci:
     name: Docker Build and Push
     runs-on: ubuntu-latest
     if: needs.release.outputs.new_release_published == 'true'
@@ -69,3 +70,23 @@ jobs:
         push: true
         tags: ghcr.io/${{ github.repository_owner }}/python-app:${{ needs.release.outputs.new_release_version }}
         platforms: linux/amd64,linux/arm64
+
+  cd:
+    name: Continuous Deployment
+    runs-on: arc-runner-set
+    needs: ci
+    steps:
+      - name: Install Argo CD CLI
+        run: |
+          curl -sSL -o argocd-linux-arm64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-arm64
+          sudo install -m 555 argocd-linux-arm64 /usr/local/bin/argocd
+      - name: Argocd login
+        run: |
+          argocd login argocd-server.argocd \
+            --insecure \
+            --grpc-web \
+            --username admin \
+            --password ${{ secrets.ARGOCD_PASSWORD }}
+      - name: Argocd app sync
+        run: |
+          argocd app sync python-app
